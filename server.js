@@ -2,6 +2,7 @@ import express from 'express';
 import authRouter from './routes/auth.js';
 import categoriesRouter from './routes/categories.js';
 import servicesRouter from './routes/services.js';
+import { authenticateJWT } from './middlewares/authenticateJWT.js';
 import db from './db/init.js';
 
 const app = express();
@@ -18,7 +19,7 @@ app.get('/', (_, res) => {
 app.use('/auth', authRouter);           // => POST /auth/login
 
 // authentication middleware
-app.use(authenticateToken);
+app.use(authenticateJWT);
 // Note: The authentication token shoul be in authorization header as "Authorization: Bearer <token>"
 
 // routers with authentication
