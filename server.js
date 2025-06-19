@@ -14,8 +14,14 @@ app.get('/', (_, res) => {
     res.send("Hello, This is a backend server for \"Code for Tomorrow's Task\"!");
 });
 
-// routers
+// routers without authentication
 app.use('/auth', authRouter);           // => POST /auth/login
+
+// authentication middleware
+app.use(authenticateToken);
+// Note: The authentication token shoul be in authorization header as "Authorization: Bearer <token>"
+
+// routers with authentication
 app.use('/', categoriesRouter);         // => /category, /categories etc
 app.use('/', servicesRouter);           // => /category/:categoryId/service etc
 
